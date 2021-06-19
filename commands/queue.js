@@ -19,11 +19,11 @@ module.exports = {
 
     const embeds = embedGenerator(serverQueue);
 
-    const queueEmbed = await message.channel.send(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
+    const queueEmbed = await msg.channel.send(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
     await queueEmbed.react('⬅️');
     await queueEmbed.react('➡️');
   
-    const reactionFilter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && (message.author.id === user.id)
+    const reactionFilter = (reaction, user) => ['⬅️', '➡️'].includes(reaction.emoji.name) && (msg.author.id === user.id)
     const collector = queueEmbed.createReactionCollector(reactionFilter);
 
     collector.on('collect', (reaction, user) => {
@@ -31,13 +31,13 @@ module.exports = {
           if(currentPage < embeds.length-1){
               currentPage+=1;
               queueEmbed.edit(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage]);
-              message.reactions.resolve(reaction).users.remove(user)
+              msg.reactions.resolve(reaction).users.remove(user)
           }
       }else if(reaction.emoji.name === '⬅️'){
           if (currentPage !== 0){
               currentPage -= 1;
               queueEmbed.edit(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
-              message.reactions.resolve(reaction).users.remove(user)
+              msg.reactions.resolve(reaction).users.remove(user)
           }
       }
     })
