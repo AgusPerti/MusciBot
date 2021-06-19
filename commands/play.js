@@ -88,7 +88,7 @@ module.exports = {
           try {
             let connection = await queueConstructor.voiceChannel.join();
             queueConstructor.connection = connection;
-            message.guild.me.voice.setSelfDeaf(true);
+            msg.guild.me.voice.setSelfDeaf(true);
             play(msg.guild, queueConstructor.songs[0]);
           } catch (err) {
             console.error(err);
