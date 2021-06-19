@@ -64,10 +64,24 @@ module.exports = {
             songs: [],
             volume: 10,
             playing: true,
-            loop: false
+            loop: false,
+            isPlaylist: false
           };
   
           queue.set(msg.guild.id, queueConstructor);
+
+          if (playlist) {
+            let newVideo = await videoFinder("perdidamente");
+            let newSongInfo = await ytdl.getInfo(newVideo.url);
+            let newSong = {
+              title: newSongInfo.videoDetails.title,
+              url: newSongInfo.videoDetails.video_url,
+              vLength: newSongInfo.videoDetails.lengthSeconds
+            };
+            queueConstructor.isPlaylist = true;
+            queueConstructor.songs.push(newSong);
+          }
+
           queueConstructor.songs.push(song);
   
           try {
@@ -113,7 +127,7 @@ module.exports = {
           //.setColor("PURPLE")
         }
   
-        message.setColor("PURPLE");
+        message.setColor("RANDOM");
         return msg.channel.send(message);
       }
   
@@ -124,14 +138,16 @@ module.exports = {
           queue.delete(guild.id);
           return;
         }
-  
-        //msg.channel.send(`Ahora tocando ***${song.title}***`);
-        //console.log(serverQueue.connection);
+
         const dispatcher = serverQueue.connection
           .play(ytdl(song.url))
           .on('finish', () => {
             console.log(serverQueue.loop);
-            if (serverQueue.loop === true) {
+            if (serverQueue.isPlaylist) {
+              serverQueue.songs.shift();
+              serverQueue.isPlaylist = false;
+              play(guild, serverQueue.songs[0]);
+            } else if (serverQueue.loop === true) {
               console.log(serverQueue.songs[0]);
               play(guild, serverQueue.songs[0]);
               serverQueue.loop = false;
