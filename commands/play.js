@@ -37,12 +37,17 @@ module.exports = {
   
       /*Me fijo si es un url de playlist*/
       if (joinedArgs.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-        await ytpl(joinedArgs).then(async playlist => {
-          embedSong(false, true, playlist);
-          playlist.items.forEach(async item => {
-            await videoHandler(await ytdl.getInfo(item.shortUrl), msg, vC, true);
-          })
-        })
+        try {
+          await ytpl(joinedArgs).then(async playlist => {
+            embedSong(false, true, playlist);
+            playlist.items.forEach(async item => {
+              await videoHandler(await ytdl.getInfo(item.shortUrl), msg, vC, true);
+            });
+          });
+        } catch (err) {
+          return msg.channel.send(`Hubo un error al cargar la playlist ${err}`);
+        }
+        
       } else {
         const video = await videoFinder(joinedArgs);
         const songInfo = await ytdl.getInfo(video.url);
