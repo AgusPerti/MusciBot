@@ -53,7 +53,8 @@ module.exports = {
         let song = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
-          vLength: songInfo.videoDetails.lengthSeconds
+          vLength: songInfo.videoDetails.lengthSeconds,
+          thumbnail: songInfo.videoDetails.thumbnail.thumbnails[3].url
         };
       
         if (!serverQueue) {
@@ -112,7 +113,8 @@ module.exports = {
           .addField("Duracion de la cancion: ", dur)
           //.setColor("PURPLE")
         }
-  
+        
+        message.setThumbnail(song.thumbnail);
         message.setColor("RANDOM");
         return msg.channel.send(message);
       }
@@ -125,22 +127,7 @@ module.exports = {
           return;
         }
 
-        const stream = ytdl(song.url, {filter: 'audioonly'});
-        serverQueue.connection.play(stream, {seek: 0, volume: 1})
-        .on('finish', () => {
-          if (serverQueue.loop === true) {
-            play(guild, serverQueue.songs[0]);
-            serverQueue.loop = false;
-          } else {
-            serverQueue.songs.shift();
-            play(guild, serverQueue.songs[0]);
-          }
-        });
-
-        embedSong(false, false, serverQueue.songs[0]);
-      }
-
-        /*const dispatcher = serverQueue.connection
+          const dispatcher = serverQueue.connection
           .play(ytdl(song.url))
           .on('finish', () => {
             if (serverQueue.loop === true) {
@@ -153,6 +140,6 @@ module.exports = {
           })
   
           embedSong(false, false, serverQueue.songs[0]);
-      }*/
+      }
     } 
 }
