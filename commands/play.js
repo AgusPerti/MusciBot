@@ -2,6 +2,8 @@ const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const ytpl = require('ytpl');
 
+let timer;
+
 module.exports = {
     name: 'play',
     aliases: ['p', 'pl'],
@@ -42,17 +44,23 @@ module.exports = {
             embedSong(false, true, playlist);
             playlist.items.forEach(async item => {
               await videoHandler(await ytdl.getInfo(item.shortUrl), msg, vC, true);
-            });
-          });
+            })
+          })
         } catch (err) {
           console.error(err);
-          return msg.channel.send(`Hubo un error al cargar la playlist ${err}`);
+          return msg.channel.send(`Por favor inserta un link valido o asegurate de que la playlist sea publica\n${err}`);
         }
         
       } else {
-        const video = await videoFinder(joinedArgs);
-        const songInfo = await ytdl.getInfo(video.url);
-        return videoHandler(songInfo, msg, vC);
+        let video = await videoFinder(joinedArgs);
+        if (!video) return message.channel.send("No se encontro ningun resultado");
+
+        try {
+          let songInfo = await ytdl.getInfo(video.url);
+          return videoHandler(songInfo, msg, vC);
+        } catch (err) {
+          message.channel.send(`No se pudo agregar la cancion\n${err}`);
+        } 
       }
    
       async function videoHandler(songInfo, msg, vC, playlist = false) {
@@ -80,6 +88,7 @@ module.exports = {
           try {
             let connection = await queueConstructor.voiceChannel.join();
             queueConstructor.connection = connection;
+            message.guild.me.voice.setSelfDeaf(true);
             play(msg.guild, queueConstructor.songs[0]);
           } catch (err) {
             console.error(err);
@@ -88,8 +97,11 @@ module.exports = {
           }
         } else {
           serverQueue.songs.push(song);
+          if (serverQueue.songs.length === 1) {
+            play(msg.guild, queueConstructor.songs[0]);
+          }
+
           if (playlist) return undefined;
-  
           embedSong(true, false, song);
         }
       }
@@ -128,8 +140,10 @@ module.exports = {
       function play(guild, song) {
         const serverQueue = queue.get(guild.id);
         if (!song) {
-          serverQueue.voiceChannel.leave();
-          queue.delete(guild.id);
+          timer = setTimeout(function() {
+            serverQueue.voiceChannel.leave();
+            queue.delete(guild.id);
+          }, 5000)
           return;
         }
 
