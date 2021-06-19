@@ -99,6 +99,7 @@ module.exports = {
         if (isQueue) {
           message.setTitle("Cancion agregada")
           .addField(song.title, "_____")
+          .setThumbnail(song.displayThumbnail())
           .addField("Duracion de la cancion: ", dur)
           //.setColor("PURPLE")
         } else if (isPlaylist) {
