@@ -15,9 +15,12 @@ module.exports = {
         return msg.channel.send("Me desconectaron");
       }
   
-      if (!serverQueue.connection.dispatcher.paused) return msg.channel.send("Sos boludo o sordo?")
+      if (serverQueue.connection.dispatcher.resumed) return msg.channel.send("Sos boludo o sordo?")
   
       serverQueue.connection.dispatcher.resume();
+      if (serverQueue.connection.dispatcher.resumed) {
+        console.log("ESTA RESUMED PAAAAAAAAAAAAA");
+      }
       msg.channel.send("Se reanudo la cancion");
     }
 }
