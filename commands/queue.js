@@ -3,7 +3,7 @@ module.exports = {
   aliases: ['q'],
   description: 'Proporciona una lista con las canciones en cola',
   
-  execute(client, msg, args, serverQueue, queue, Discord) {
+  async execute(client, msg, args, serverQueue, queue, Discord) {
     const voiceChannel = msg.member.voice.channel;
   
     if (!voiceChannel) return msg.channel.send("Tenes que estar en el canal para usar este comando");
