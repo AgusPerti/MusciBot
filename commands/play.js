@@ -71,7 +71,7 @@ module.exports = {
           queueConstructor.songs.push(song);
   
           try {
-            let connection = await queueConstructor.voiceChannel.join();
+            const connection = await queueConstructor.voiceChannel.join();
             queueConstructor.connection = connection;
             play(msg.guild, queueConstructor.songs[0]);
           } catch (err) {
