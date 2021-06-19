@@ -54,7 +54,7 @@ module.exports = {
           title: songInfo.videoDetails.title,
           url: songInfo.videoDetails.video_url,
           vLength: songInfo.videoDetails.lengthSeconds,
-          thumbnail: songInfo.videoDetails.thumbnail.thumbnails[3].url
+          thumbnail: songInfo.videoDetails.thumbnails[3].url
         };
       
         if (!serverQueue) {
