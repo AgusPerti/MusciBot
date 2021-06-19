@@ -64,24 +64,10 @@ module.exports = {
             songs: [],
             volume: 10,
             playing: true,
-            loop: false,
-            isPlaylist: false
+            loop: false
           };
   
           queue.set(msg.guild.id, queueConstructor);
-
-          if (playlist) {
-            const newVideo = await videoFinder('perdidamente');
-            const newSongInfo = await ytdl.getInfo(newVideo.url);
-            let newSong = {
-              title: newSongInfo.videoDetails.title,
-              url: newSongInfo.videoDetails.video_url,
-              vLength: newSongInfo.videoDetails.lengthSeconds
-            };
-            queueConstructor.isPlaylist = true;
-            queueConstructor.songs.push(newSong);
-          }
-
           queueConstructor.songs.push(song);
   
           try {
@@ -143,11 +129,7 @@ module.exports = {
           .play(ytdl(song.url))
           .on('finish', () => {
             console.log(serverQueue.loop);
-            if (serverQueue.isPlaylist) {
-              serverQueue.songs.shift();
-              serverQueue.isPlaylist = false;
-              play(guild, serverQueue.songs[0]);
-            } else if (serverQueue.loop === true) {
+            if (serverQueue.loop === true) {
               console.log(serverQueue.songs[0]);
               play(guild, serverQueue.songs[0]);
               serverQueue.loop = false;
