@@ -18,9 +18,8 @@ module.exports = {
       if (!serverQueue.connection.dispatcher.paused) return msg.channel.send("Sos boludo o sordo?")
   
       serverQueue.connection.dispatcher.resume();
-      if (!serverQueue.connection.dispatcher.paused) {
-        console.log("ESTA RESUMED PAAAAAAAAAAAAA");
-      }
+      serverQueue.connection.dispatcher.pause();
+      serverQueue.connection.dispatcher.resume();
       msg.channel.send("Se reanudo la cancion");
     }
 }

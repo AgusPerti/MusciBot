@@ -30,13 +30,13 @@ module.exports = {
       if(reaction.emoji.name === '➡️'){
           if(currentPage < embeds.length-1){
               currentPage+=1;
-              queueEmbed.edit(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage]);
+              queueEmbed.edit(`Canciones pagina: ${currentPage+1}/${embeds.length}`, embeds[currentPage]);
               msg.reactions.resolve(reaction).users.remove(user)
           }
       }else if(reaction.emoji.name === '⬅️'){
           if (currentPage !== 0){
               currentPage -= 1;
-              queueEmbed.edit(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
+              queueEmbed.edit(`Canciones pagina: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
               msg.reactions.resolve(reaction).users.remove(user)
           }
       }
@@ -61,7 +61,7 @@ module.exports = {
         let j = i-1;
         const info = current.map(song => `${++j}. [${song.title}](${song.url})`).join('\n')
         const msg = new Discord.MessageEmbed()
-          .setDescription(`Now playing: [${serverQueue.songs[0].title}](${serverQueue.songs[0].url}) \n ${info}`)
+          .setDescription(`Ahora tocando: [${serverQueue.songs[0].title}](${serverQueue.songs[0].url}) \n ${info}`)
     
         embeds.push(msg)
       }
