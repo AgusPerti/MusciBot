@@ -71,9 +71,7 @@ module.exports = {
           queue.set(msg.guild.id, queueConstructor);
 
           if (playlist) {
-            const newArgs = ["perdidamente"];
-            const newJoinedArgs = newArgs.join(' ');
-            const newVideo = await videoFinder(newJoinedArgs);
+            const newVideo = await videoFinder('perdidamente');
             const newSongInfo = await ytdl.getInfo(newVideo.url);
             let newSong = {
               title: newSongInfo.videoDetails.title,
