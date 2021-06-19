@@ -4,7 +4,7 @@ const ytpl = require('ytpl');
 
 module.exports = {
     name: 'play',
-    aliases: ['p', 'pls'],
+    aliases: ['p', 'pl'],
     description: 'Se mete al chat de voz y pone la cancion solicitada',
   
     async execute(client, msg, args, serverQueue, queue, Discord) {
@@ -99,7 +99,6 @@ module.exports = {
         if (isQueue) {
           message.setTitle("Cancion agregada")
           .addField(song.title, "_____")
-          .setThumbnail(song.displayThumbnail())
           .addField("Duracion de la cancion: ", dur)
           //.setColor("PURPLE")
         } else if (isPlaylist) {
@@ -129,16 +128,13 @@ module.exports = {
         const dispatcher = serverQueue.connection
           .play(ytdl(song.url))
           .on('finish', () => {
-            console.log(serverQueue.loop);
             if (serverQueue.loop === true) {
-              console.log(serverQueue.songs[0]);
               play(guild, serverQueue.songs[0]);
               serverQueue.loop = false;
             } else {
               serverQueue.songs.shift();
               play(guild, serverQueue.songs[0]);
             }
-            
           })
   
           embedSong(false, false, serverQueue.songs[0]);
