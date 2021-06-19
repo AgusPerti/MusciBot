@@ -45,6 +45,7 @@ module.exports = {
             });
           });
         } catch (err) {
+          console.error(err);
           return msg.channel.send(`Hubo un error al cargar la playlist ${err}`);
         }
         
@@ -77,7 +78,7 @@ module.exports = {
           queueConstructor.songs.push(song);
   
           try {
-            const connection = await queueConstructor.voiceChannel.join();
+            let connection = await queueConstructor.voiceChannel.join();
             queueConstructor.connection = connection;
             play(msg.guild, queueConstructor.songs[0]);
           } catch (err) {
