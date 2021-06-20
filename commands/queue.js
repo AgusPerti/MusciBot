@@ -1,6 +1,6 @@
 module.exports = {
   name: 'queue',
-  aliases: ['q'],
+  aliases: ['q', 'que', 'qu'],
   description: 'Proporciona una lista con las canciones en cola',
   
   async execute(client, msg, args, serverQueue, queue, Discord) {

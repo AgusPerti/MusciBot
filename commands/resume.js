@@ -1,6 +1,6 @@
 module.exports = {
     name: 'resume',
-    aliases: ['r'],
+    aliases: ['r', 'res', 'rs'],
     description: 'Reanuda la cancion que fue pausada previamente',
   
     execute(client, msg, args, serverQueue, queue) {

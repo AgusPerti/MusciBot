@@ -6,7 +6,7 @@ let timer;
 
 module.exports = {
     name: 'play',
-    aliases: ['p', 'pl'],
+    aliases: ['p', 'pl', 'py'],
     description: 'Se mete al chat de voz y pone la cancion solicitada',
   
     async execute(client, msg, args, serverQueue, queue, Discord) {

@@ -1,6 +1,6 @@
 module.exports = {
     name: 'skip',
-    aliases: ['s'],
+    aliases: ['s', 'sk', 'skp'],
     description: 'Salta a la cancion siguiente',
   
     execute(client, msg, args, serverQueue, queue) {

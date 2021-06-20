@@ -1,6 +1,6 @@
 module.exports = {
     name: 'pause',
-    aliases: ['ps'],
+    aliases: ['ps', 'paus', 'pa'],
     description: 'Pausa la cancion que se esta tocando en ese momento',
   
     execute(client, msg, args, serverQueue, queue) {

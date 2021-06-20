@@ -2,7 +2,7 @@ const maxClear = 100;
 
 module.exports = {
   name: 'clear',
-  aliases: ['cl'],
+  aliases: ['cl', 'c', 'cr'],
   description: 'Borra cierta cantidad de mensajes',
 
   async execute(client, msg, args, serverQueue, queue) {

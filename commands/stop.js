@@ -1,6 +1,6 @@
 module.exports = {
     name: 'stop',
-    aliases: ['st'],
+    aliases: ['st', 'stp', 'sp'],
     description: 'Frena la musica haciendo que el bot abandone el chat de voz',
   
     execute(client, msg, args, serverQueue, queue) {

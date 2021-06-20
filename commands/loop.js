@@ -1,6 +1,6 @@
 module.exports = {
     name: 'loop',
-    aliases: ['l'],
+    aliases: ['l', 'lp', 'lo'],
     description: 'Reinicia la cancion que se esta tocando en ese momento',
   
     execute(client, msg, args, serverQueue, queue) {
