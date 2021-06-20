@@ -19,7 +19,7 @@ module.exports = {
 
     const embeds = embedGenerator(serverQueue);
 
-    const queueEmbed = await msg.channel.send(`Lyrics page: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
+    const queueEmbed = await msg.channel.send(`Canciones pagina: ${currentPage+1}/${embeds.length}`, embeds[currentPage])
     await queueEmbed.react('⬅️');
     await queueEmbed.react('➡️');
   
@@ -55,7 +55,7 @@ module.exports = {
     function embedGenerator(serverQueue){
       const embeds = [];
       let songs = 11;
-      for (let i = 1; i < serverQueue.songs.length; i += 10){
+      for (let i = 1; i <= serverQueue.songs.length; i += 10){
         const current = serverQueue.songs.slice(i, songs)
         songs += 10;
         let j = i-1;
