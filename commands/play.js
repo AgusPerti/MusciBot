@@ -53,13 +53,13 @@ module.exports = {
         
       } else {
         let video = await videoFinder(joinedArgs);
-        if (!video) return message.channel.send("No se encontro ningun resultado");
+        if (!video) return msg.channel.send("No se encontro ningun resultado");
 
         try {
           let songInfo = await ytdl.getInfo(video.url);
           return videoHandler(songInfo, msg, vC);
         } catch (err) {
-          message.channel.send(`No se pudo agregar la cancion\n${err}`);
+          msg.channel.send(`No se pudo agregar la cancion\n${err}`);
         } 
       }
    

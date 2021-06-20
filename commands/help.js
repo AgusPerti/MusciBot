@@ -10,7 +10,24 @@ module.exports = {
         }
 
         if (args[0]) {
-            return;
+            if (client.commands.has(args[0])) {
+                let cmdInfo = {
+                    name: client.commands.get(args[0]).name,
+                    aliases: client.commands.get(args[0]).aliases,
+                    description: client.commands.get(args[0]).description
+                };
+                embedGenerator(client, args[0]);
+            } else {
+                return msg.reply(`No existe el comando ${args[0]}`);
+            }
+        }
+
+        function embedGenerator(client, specificCommand = null) {
+            let message = new Discord.MessageEmbed();
+            if (specificCommand) {
+                message.setTitle(`Informacion sobre ${specificCommand}`)
+                .addField("hola")
+            }
         }
     }
 }
