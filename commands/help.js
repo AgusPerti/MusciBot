@@ -25,9 +25,11 @@ module.exports = {
         function embedGenerator(client, specificCommand = null) {
             let message = new Discord.MessageEmbed();
             if (specificCommand) {
-                message.setTitle(`Informacion sobre ${specificCommand}`)
-                .addField("hola")
+                message.setTitle(`Informacion sobre el comando ` + `${specificCommand}`)
+                .addField("Aliases", ``)
             }
+
+            return msg.channel.send(message);
         }
     }
 }
