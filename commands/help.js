@@ -25,8 +25,9 @@ module.exports = {
         function embedGenerator(client, specificCommand = null) {
             let message = new Discord.MessageEmbed();
             if (specificCommand) {
+                let cmdInfo = client.commands.get(specificCommand);
                 message.setTitle(`Informacion sobre el comando ` + `${specificCommand}`)
-                .addField("Aliases", ``)
+                .addField("Aliases", `${cmdInfo.aliases[0]}`)
             }
 
             return msg.channel.send(message);
