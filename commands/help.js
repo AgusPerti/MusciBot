@@ -20,6 +20,8 @@ module.exports = {
             } else {
                 return msg.reply(`No existe el comando ${args[0]}`);
             }
+        } else {
+            embedGenerator(client);
         }
 
         function embedGenerator(client, specificCommand = null) {
